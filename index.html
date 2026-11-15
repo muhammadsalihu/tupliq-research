@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tupliq Research — Case Studies</title>
+<meta name="description" content="Engineering case studies from the Tupliq project ecosystem: AI agent products, evaluation benchmarks, developer tooling, and simulation software.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a0a0f'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%236ee7b7' font-family='monospace'%3ET%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg-soft: #111118;
+    --card: #14141d;
+    --border: #23232f;
+    --text: #e8e8ee;
+    --muted: #9a9aad;
+    --accent: #6ee7b7;
+    --accent-2: #818cf8;
+    --mono: ui-monospace, 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---- nav ---- */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(10,10,15,.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { font-family: var(--mono); font-weight: 700; font-size: 1.05rem; color: var(--text); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  nav .links { display: flex; gap: 22px; font-size: .9rem; }
+  nav .links a { color: var(--muted); text-decoration: none; transition: color .15s; }
+  nav .links a:hover { color: var(--text); }
+
+  /* ---- hero ---- */
+  header { padding: 96px 0 72px; text-align: center; }
+  .eyebrow {
+    display: inline-block; font-family: var(--mono); font-size: .78rem;
+    color: var(--accent); border: 1px solid rgba(110,231,183,.25);
+    background: rgba(110,231,183,.06);
+    padding: 6px 14px; border-radius: 999px; margin-bottom: 24px;
+  }
+  header h1 {
+    font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+    font-weight: 800; letter-spacing: -.03em; line-height: 1.12;
+    max-width: 720px; margin: 0 auto 20px;
+  }
+  header h1 em { font-style: normal; color: var(--accent); }
+  header p.sub { color: var(--muted); font-size: 1.1rem; max-width: 620px; margin: 0 auto 36px; }
+  .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 12px 24px; border-radius: 10px;
+    font-weight: 600; font-size: .95rem; text-decoration: none; transition: transform .15s, background .15s, border-color .15s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--accent); color: #05130c; }
+  .btn-primary:hover { background: #8bf0c9; }
+  .btn-ghost { border: 1px solid var(--border); color: var(--text); background: var(--bg-soft); }
+  .btn-ghost:hover { border-color: #3a3a4a; }
+
+  /* ---- project grid ---- */
+  .grid-section { padding: 24px 0 80px; }
+  .grid-section h2 { font-size: .85rem; font-family: var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 20px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+  .card {
+    display: block; background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 26px; text-decoration: none; color: var(--text);
+    transition: border-color .2s, transform .2s;
+  }
+  .card:hover { border-color: #3d3d52; transform: translateY(-3px); }
+  .card .tag { font-family: var(--mono); font-size: .72rem; color: var(--accent-2); text-transform: uppercase; letter-spacing: .1em; }
+  .card h3 { font-size: 1.25rem; margin: 10px 0 8px; letter-spacing: -.01em; }
+  .card p { color: var(--muted); font-size: .92rem; }
+  .card .go { display: inline-block; margin-top: 16px; font-size: .85rem; color: var(--accent); font-weight: 600; }
+
+  /* ---- case studies ---- */
+  .case {
+    padding: 72px 0; border-top: 1px solid var(--border);
+    display: grid; grid-template-columns: 1fr; gap: 12px;
+  }
+  .case .tag { font-family: var(--mono); font-size: .78rem; color: var(--accent-2); text-transform: uppercase; letter-spacing: .1em; }
+  .case h2 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); letter-spacing: -.02em; margin: 6px 0 18px; }
+  .case h3 { font-size: .8rem; font-family: var(--mono); color: var(--accent); text-transform: uppercase; letter-spacing: .12em; margin: 26px 0 8px; }
+  .case p, .case li { color: #c3c3d1; max-width: 760px; font-size: .98rem; }
+  .case ul { padding-left: 22px; }
+  .case li { margin-bottom: 6px; }
+  .case li strong { color: var(--text); }
+  .case code { font-family: var(--mono); font-size: .85em; background: var(--bg-soft); border: 1px solid var(--border); padding: 1px 6px; border-radius: 6px; }
+  .links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px; border-radius: 8px; font-size: .88rem; font-weight: 600;
+    text-decoration: none; border: 1px solid var(--border); background: var(--bg-soft); color: var(--text);
+    transition: border-color .15s;
+  }
+  .pill:hover { border-color: var(--accent); color: var(--accent); }
+  .pill.primary { background: var(--accent); border-color: var(--accent); color: #05130c; }
+  .pill.primary:hover { color: #05130c; background: #8bf0c9; }
+
+  /* ---- footer ---- */
+  footer { border-top: 1px solid var(--border); padding: 40px 0; margin-top: 40px; }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: .88rem; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--text); }
+
+  @media (max-width: 640px) {
+    header { padding: 64px 0 48px; }
+    nav .links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">tupliq<span>_research</span></a>
+    <div class="links">
+      <a href="#tupliq-agent">Tupliq Agent</a>
+      <a href="#mecheval">MechEval</a>
+      <a href="#launchpad">Launchpad</a>
+      <a href="#multiphysics">Multiphysics</a>
+    </div>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="wrap">
+    <span class="eyebrow">Engineering case studies · 2026</span>
+    <h1>Real products, shipped <em>end to end</em>.</h1>
+    <p class="sub">Case studies from the Tupliq ecosystem — an AI agent product on the Play Store, a code-graded evaluation benchmark for engineering reasoning, agent tooling, and a simulation platform in progress.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#projects">Read the case studies</a>
+      <a class="btn btn-ghost" href="https://www.tupliq.com" target="_blank" rel="noopener">tupliq.com →</a>
+    </div>
+  </div>
+</header>
+
+<section class="grid-section" id="projects">
+  <div class="wrap">
+    <h2>Projects</h2>
+    <div class="grid">
+      <a class="card" href="#tupliq-agent">
+        <span class="tag">Mobile · AI Agent · Monetized</span>
+        <h3>Tupliq Agent</h3>
+        <p>Mobile-first AI agent app for freelancers and small businesses — describe a task, get structured results. Expo + NestJS + RevenueCat IAP.</p>
+        <span class="go">Read case study →</span>
+      </a>
+      <a class="card" href="#mecheval">
+        <span class="tag">AI Evaluation · Research</span>
+        <h3>Tupliq MechEval</h3>
+        <p>A reproducible, code-graded benchmark that exposes physical-reasoning failures in frontier AI models on professional mechanical engineering tasks.</p>
+        <span class="go">Read case study →</span>
+      </a>
+      <a class="card" href="#launchpad">
+        <span class="tag">Agent Tooling · Hackathon</span>
+        <h3>Tupliq Launchpad</h3>
+        <p>A Hermes Agent plugin: RevenueCat revenue &amp; subscription metrics plus git-driven Play Store changelog drafting, zero Python dependencies.</p>
+        <span class="go">Read case study →</span>
+      </a>
+      <a class="card" href="#multiphysics">
+        <span class="tag">Simulation · Desktop · Rust</span>
+        <h3>Tupliq Multiphysics</h3>
+        <p>A Tauri (Rust) + React desktop app for co-simulation and virtual commissioning: a four-stage pipeline from geometry to solver results.</p>
+        <span class="go">Read case study →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TUPLIQ AGENT ============ -->
+<article class="case" id="tupliq-agent">
+  <div class="wrap">
+    <span class="tag">01 · Mobile · AI Agent · Monetized</span>
+    <h2>Tupliq Agent — an AI agent you can actually install</h2>
+
+    <h3>The problem</h3>
+    <p>Remote workers, freelancers, consultants and small businesses don't want another chat window — they want outcomes. Tupliq Agent takes a plain-language request, classifies it, picks a workflow and the best available AI model, executes it, and returns structured, actionable results you can copy, save and reuse. It was built as a standalone product for the <strong>RevenueCat Shipaton</strong> challenge, with monetization designed in from the first commit.</p>
+
+    <h3>How it's built</h3>
+    <ul>
+      <li><strong>Mobile client</strong> — Expo 54 / React Native with expo-router, Supabase auth, React Query + Zustand, and a role-based onboarding flow.</li>
+      <li><strong>Backend</strong> — a production NestJS REST API (<code>tupliq-backend</code>) with Prisma + Postgres: <code>/agent/run</code> orchestration, run history, usage limits, saved outputs, and RevenueCat-backed entitlements, containerized with Docker.</li>
+      <li><strong>Provider chain with fallback</strong> — Gemini ▸ OpenAI ▸ Anthropic. AI keys never leave the backend; the app only ever talks to the NestJS API.</li>
+      <li><strong>Trust nothing client-side</strong> — usage limits are enforced server-side (402 → paywall), and subscription truth is written only by the RevenueCat webhook, never read from the client SDK.</li>
+      <li><strong>Structured outputs</strong> — every workflow validates model responses with Zod; malformed output triggers one bounded repair pass instead of surfacing garbage to the user.</li>
+    </ul>
+
+    <h3>Outcome</h3>
+    <p>A complete, monetizable vertical slice: signup → onboarding → run a workflow → history → free-tier limit → paywall → Pro entitlement via RevenueCat (monthly and yearly products behind the <code>tupliq_pro</code> entitlement), with the Android app published on Google Play.</p>
+
+    <div class="links">
+      <a class="pill primary" href="https://play.google.com/store/apps/details?id=com.tupliq.agent" target="_blank" rel="noopener">▶ Get it on Google Play</a>
+      <a class="pill" href="https://www.tupliq.com" target="_blank" rel="noopener">Landing page — tupliq.com</a>
+      <a class="pill" href="https://github.com/muhammadsalihu/tupliq-agent-mobile" target="_blank" rel="noopener">GitHub — tupliq-agent-mobile</a>
+      <a class="pill" href="https://github.com/muhammadsalihu/tupliq-backend" target="_blank" rel="noopener">GitHub — tupliq-backend</a>
+    </div>
+    <p style="color:var(--muted); font-size:.85rem; margin-top:14px;">A YouTube walkthrough is in production and will be linked here.</p>
+  </div>
+</article>
+
+<!-- ============ MECHEVAL ============ -->
+<article class="case" id="mecheval">
+  <div class="wrap">
+    <span class="tag">02 · AI Evaluation · Research</span>
+    <h2>MechEval — grading frontier AI on real engineering physics</h2>
+
+    <h3>The problem</h3>
+    <p>Frontier AI models can rapidly generate plausible-looking engineering derivations. But in safety-critical physical systems — civil infrastructure, aerospace airframes, high-pressure piping, machinery — a calculation that <em>looks</em> convincing but is physically invalid can mean structural collapse. Prior work shows LLMs can generate simulation inputs (e.g. GMSH geometry); MechEval asks the complementary question: can these models be trusted to get the <strong>physics</strong> right?</p>
+
+    <h3>How it's built</h3>
+    <ul>
+      <li><strong>Code-graded, not vibe-graded</strong> — every task is scored by deterministic graders against a reference solution methodology, with rigorous validation of the grading logic itself.</li>
+      <li><strong>Five professional tasks</strong> — spanning mechanical and structural engineering, with defined input/output schemas per task.</li>
+      <li><strong>Reproducible by design</strong> — Python 3.11+, exact reproduction commands published, and every figure quoted from the run's own <code>results/raw/*.json</code>. 33 tests passing.</li>
+      <li><strong>Honest reporting</strong> — the README includes an AI-assisted development &amp; human verification disclosure, plus known limitations and runtime/inference cost analysis.</li>
+    </ul>
+
+    <h3>Outcome</h3>
+    <p>A measurable, reproducible result set across a live roster of frontier models — including the specific failure modes graders recorded — built for the micro1 Eval Hackathon 2026. The 2:23 narrated walkthrough reads every number directly from the benchmark's raw output files.</p>
+
+    <div class="links">
+      <a class="pill primary" href="https://github.com/muhammadsalihu/tupliq-mecheval" target="_blank" rel="noopener">GitHub — tupliq-mecheval</a>
+      <a class="pill" href="https://youtu.be/9wNIa13TxZU" target="_blank" rel="noopener">▶ Watch the 2:23 walkthrough</a>
+    </div>
+  </div>
+</article>
+
+<!-- ============ LAUNCHPAD ============ -->
+<article class="case" id="launchpad">
+  <div class="wrap">
+    <span class="tag">03 · Agent Tooling · Hackathon</span>
+    <h2>Tupliq Launchpad — RevenueCat metrics inside your AI agent</h2>
+
+    <h3>The problem</h3>
+    <p>If you ship monetized apps, your revenue data lives in RevenueCat and your release notes live in git history — both behind context switches. Built during the <strong>Hermes Agent Plugin Hackathon (Nov 2026)</strong>, Launchpad brings both into the agent you already talk to.</p>
+
+    <h3>How it's built</h3>
+    <ul>
+      <li><strong>Four tools, one plugin</strong> — <code>launchpad_overview</code> (revenue + actives + churn for the last N days), <code>launchpad_revenue</code> (explicit date ranges, gross/net/proceeds), <code>launchpad_chart</code> (any named RevenueCat chart: MRR, ARR, trials, conversion, …), and <code>launchpad_changelog</code> (drafts Play Store release notes from git commits since the last tag — read-only).</li>
+      <li><strong>Zero dependencies</strong> — stdlib <code>urllib</code> only. No Python packages to install or break.</li>
+      <li><strong>Secrets done right</strong> — the API key is stored via Hermes' credential route and never touches <code>config.yaml</code>; a V2 RevenueCat key is scoped to <code>charts_metrics</code> read only.</li>
+      <li><strong>Never raises</strong> — all handlers return JSON; network errors surface as readable error payloads instead of stack traces.</li>
+    </ul>
+
+    <h3>Outcome</h3>
+    <p>Prompts like <em>"How much revenue did Tupliq Agent make in the last 30 days?"</em> or <em>"Draft release notes for the Play Store update"</em> now work in one turn — the same plugin powers this site's owner's day-to-day shipping loop.</p>
+
+    <div class="links">
+      <a class="pill primary" href="https://github.com/muhammadsalihu/tupliq-launchpad" target="_blank" rel="noopener">GitHub — tupliq-launchpad</a>
+    </div>
+  </div>
+</article>
+
+<!-- ============ MULTIPHYSICS ============ -->
+<article class="case" id="multiphysics">
+  <div class="wrap">
+    <span class="tag">04 · Simulation · Desktop · Rust</span>
+    <h2>Tupliq Multiphysics — a workbench for co-simulation</h2>
+
+    <h3>The problem</h3>
+    <p>Virtual commissioning — validating a machine's control logic against its physics before anything is built — still means gluing together mesh generators, solvers and PLC tooling by hand. Tupliq Multiphysics is a desktop workbench that wraps that pipeline in one app: Geometry → Mesh → Solve → Results, as a real numbered sequence rather than decorative tabs.</p>
+
+    <h3>How it's built</h3>
+    <ul>
+      <li><strong>Tauri, not Electron</strong> — a Rust core with a React + TypeScript + Tailwind v4 frontend; the JS ↔ Rust round trip is already proven end to end with a stubbed <code>run_solver(stage)</code> command.</li>
+      <li><strong>A solver sidecar</strong> — the planned seam plugs in <code>@agent-musaj/gmsh-generator</code> and <code>@agent-musaj/elmer-generator</code> packages via a Tauri external binary, streaming solver stdout to a live log panel instead of blocking on returns.</li>
+      <li><strong>3D viewport</strong> — a three.js / react-three-fiber panel reserved for geometry and mesh output from the pipeline's first stages.</li>
+      <li><strong>FMI/FMU + virtual PLC</strong> — the roadmap's hardest and least-served part: co-simulation standards and a virtual PLC loop with the least prior art.</li>
+      <li><strong>Drafting-table design</strong> — deliberately blueprint-flavored: fine grid, numbered pipeline, and a footer styled as an engineering drawing title block (DWG NO. / STAGE / REV / SCALE) that displays live run state.</li>
+    </ul>
+
+    <h3>Status</h3>
+    <p>Active development. The frontend builds and type-checks clean; the next milestone is confirming the full Tauri toolchain locally, then wiring the solver sidecar.</p>
+
+    <div class="links">
+      <a class="pill primary" href="https://github.com/muhammadsalihu/tupliq-multiphysics" target="_blank" rel="noopener">GitHub — tupliq-multiphysics</a>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <span>tupliq_research — engineering case studies from the Tupliq ecosystem.</span>
+    <span><a href="https://www.tupliq.com" target="_blank" rel="noopener">tupliq.com</a> · <a href="https://github.com/muhammadsalihu" target="_blank" rel="noopener">github.com/muhammadsalihu</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
